@@ -11,6 +11,7 @@ int main()
         if(ark){
             while (!feof(ark)){//File End of File
             resultado = fgets(nome, 10, ark);
+            printf("Resultado: %d\n", resultado);
             if(resultado){
                 printf("%s", nome);
             }
