@@ -1,0 +1,24 @@
+
+#include <stdio.h>
+
+int main()
+{
+    FILE *ark;
+    char c;
+
+        ark = fopen("arquivo.txt", "w");
+    
+        ark = fopen("arquivo.txt", "r");
+        
+        if(ark){
+            while ((c = getc(ark)) !=EOF){ //getc - get caracter e End of FILE
+            printf("%c", c);
+            }
+        }else{
+            printf("Não existe");
+        }
+        
+        fclose(ark);
+        
+    return 0;
+}
