@@ -1,0 +1,25 @@
+
+#include <stdio.h>
+
+int main()
+{
+    FILE *ark;
+    char nome[10], *resultado;
+    
+        ark = fopen("arquivo.txt", "r");
+        
+        if(ark){
+            while (!feof(ark)){//File End of File
+            resultado = fgets(nome, 10, ark);
+            if(resultado){
+                printf("%s", nome);
+            }
+        }
+        }else{
+            printf("Não existe");
+        }
+        
+        fclose(ark);
+        
+    return 0;
+}
