@@ -1,0 +1,103 @@
+public abstract class Veiculo {
+    private String placa;
+    private String marca;
+    private String modelo;
+    private int ano;
+    double precoPorDia;
+
+    public Veiculo(String placa, String marca, String modelo, int ano, double precoPorDia) {
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.precoPorDia = precoPorDia;
+    }
+
+    public String getInformacoes() {
+        return "Placa: " + placa + ", Marca: " + marca + ", Modelo: " + modelo + ", Ano: " + ano + ", Preço por dia: R$" + precoPorDia;
+    }
+
+    public abstract double calcularValorLocacao(int dias);
+}
+
+//outra classe
+
+public class Carro extends Veiculo {
+    private int quantidadeDePortas;
+
+    public Carro(String placa, String marca, String modelo, int ano, double precoPorDia, int quantidadeDePortas) {
+        super(placa, marca, modelo, ano, precoPorDia);
+        this.quantidadeDePortas = quantidadeDePortas;
+    }
+
+    @Override
+    public double calcularValorLocacao(int dias) {
+        double valor = super.precoPorDia * dias;
+        if (dias > 7) {
+            valor *= 0.95;
+        }
+        return valor;
+    }
+}
+
+//putra claase
+
+public class Moto extends Veiculo {
+    private double cilindrada;
+
+    public Moto(String placa, String marca, String modelo, int ano, double precoPorDia, double cilindrada) {
+        super(placa, marca, modelo, ano, precoPorDia);
+        this.cilindrada = cilindrada;
+    }
+
+    @Override
+    public double calcularValorLocacao(int dias) {
+        double valor = super.precoPorDia * dias;
+        return valor * 1.10;
+    }
+}
+
+//outra clase
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cliente {
+    private String nome;
+    private String cpf;
+    private List<String> historicoDeLocacoes;
+
+    public Cliente(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.historicoDeLocacoes = new ArrayList<>();
+    }
+
+    public void alugarVeiculo(Veiculo veiculo, int dias) {
+        double custo = veiculo.calcularValorLocacao(dias);
+        historicoDeLocacoes.add(veiculo.getInformacoes() + ", Dias: " + dias + ", Custo: R$" + custo);
+    }
+
+    public void mostrarHistoricoDeLocacoes() {
+        System.out.println("Histórico de locações de " + nome + ":");
+        for (String locacao : historicoDeLocacoes) {
+            System.out.println(locacao);
+        }
+    }
+}
+
+//outra classe
+
+public class Manneor {
+    public static void main(String[] args) {
+        Cliente cliente = new Cliente("Enzastor", "123.456.789-00");
+
+        Veiculo carro = new Carro("Ada", "Ford", "Chevrole", 9942, 100, 4);
+        Veiculo moto = new Moto("422", "Honda", "camaro", 2322, 80, 500);
+
+        cliente.alugarVeiculo(carro, 10);
+        cliente.alugarVeiculo(moto, 5);
+
+        cliente.mostrarHistoricoDeLocacoes();
+    }
+}
