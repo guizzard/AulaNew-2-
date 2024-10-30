@@ -1,0 +1,101 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class ItemBiblioteca {
+    protected String titulo;
+    protected String autor;
+    protected int anoPublicacao;
+
+    public ItemBiblioteca(String titulo, String autor, int anoPublicacao) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    public abstract String getInfo();
+}
+
+//outra 
+
+public class Livro extends ItemBiblioteca {
+    private String generoLiterario;
+
+    public Livro(String titulo, String autor, int anoPublicacao, String generoLiterario) {
+        super(titulo, autor, anoPublicacao);
+        this.generoLiterario = generoLiterario;
+    }
+
+    @Override
+    public String getInfo() {
+        return "Livro: " + titulo + ", Autor: " + autor + ", Ano: " + anoPublicacao + ", Gênero: " + generoLiterario;
+    }
+}
+
+//outra 
+
+public class Revista extends ItemBiblioteca {
+    private int numeroDaEdicao;
+
+    public Revista(String titulo, String autor, int anoPublicacao, int numeroDaEdicao) {
+        super(titulo, autor, anoPublicacao);
+        this.numeroDaEdicao = numeroDaEdicao;
+    }
+
+    @Override
+    public String getInfo() {
+        return "Revista: " + titulo + ", Autor: " + autor + ", Ano: " + anoPublicacao + ", Edição: " + numeroDaEdicao;
+    }
+}
+
+//outra
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Usuario {
+    private String nome;
+    private int idUsuario;
+    private List<ItemBiblioteca> itensEmprestados;
+
+    public Usuario(String nome, int idUsuario) {
+        this.nome = nome;
+        this.idUsuario = idUsuario;
+        this.itensEmprestados = new ArrayList<>();
+    }
+
+    public void emprestarItem(ItemBiblioteca item) {
+        itensEmprestados.add(item);
+    }
+
+    public void devolverItem(ItemBiblioteca item) {
+        itensEmprestados.remove(item);
+    }
+
+    public void mostrarItensEmprestados() {
+        if (itensEmprestados.isEmpty()) {
+            System.out.println(nome + " não possui itens emprestados.");
+        } else {
+            System.out.println("Itens emprestados por " + nome + ":");
+            for (ItemBiblioteca item : itensEmprestados) {
+                System.out.println(item.getInfo());
+            }
+        }
+    }
+}
+
+//outra
+
+public class Biblioteca {
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario("João", 1);
+        Livro livro1 = new Livro("1984", "George Orwell", 1949, "Distopia");
+        Revista revista1 = new Revista("Nature", "Diversos", 2023, 789);
+
+        usuario.emprestarItem(livro1);
+        usuario.emprestarItem(revista1);
+        usuario.mostrarItensEmprestados();
+
+        usuario.devolverItem(livro1);
+        usuario.mostrarItensEmprestados();
+    }
+}
