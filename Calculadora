@@ -1,0 +1,28 @@
+import java.util.List;
+
+public class Calculadora {
+    public int somar(int a, int b) {
+        return a + b;
+    }
+
+    public double somar(double a, double b) {
+        return a + b;
+    }
+
+    public int somar(List<Integer> numeros) {
+        return numeros.stream().mapToInt(Integer::intValue).sum();
+    }
+}
+
+//outra classe
+
+import java.util.Arrays;
+
+public class Mainner {
+    public static void main(String[] args) {
+        Calculadora calc = new Calculadora();
+        System.out.println("Soma de 3 e 5: " + calc.somar(3, 5));
+        System.out.println("Soma de 2.5 e 4.5: " + calc.somar(2.5, 4.5));
+        System.out.println("Soma da lista [1, 2, 3]: " + calc.somar(Arrays.asList(1, 2, 3)));
+    }
+}
