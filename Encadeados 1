@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int valor;
+    struct Node* prox;
+} Node;
+
+Node* criar(int valor) {
+    Node* novo = (Node*)malloc(sizeof(Node));
+    novo->valor = valor;
+    novo->prox = NULL;
+    return novo;
+}
+
+void adicionar(Node** cabeca, int valor) {
+    Node* novo = criar(valor);
+    novo->prox = *cabeca;
+    *cabeca = novo;
+}
+
+int buscar(Node* cabeca, int alvo) {
+    while (cabeca) {
+        if (cabeca->valor == alvo) return 1;
+        cabeca = cabeca->prox;
+    }
+    return 0;
+}
+
+int main() {
+    Node* cabeca = NULL;
+    adicionar(&cabeca, 10);
+    adicionar(&cabeca, 20);
+    adicionar(&cabeca, 30);
+    int alvo = 20;
+    if (buscar(cabeca, alvo))
+        printf("Encontrado\n");
+    else
+        printf("Não\n");
+    return 0;
+}
