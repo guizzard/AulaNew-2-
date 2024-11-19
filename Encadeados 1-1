@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+z
+typedef struct N {
+    int val;
+    struct N* prox;
+} N;
+
+N* criar(int val) {
+    N* novo = (N*)malloc(sizeof(N));
+    novo->val = val;
+    novo->prox = NULL;
+    return novo;
+}
+
+void add(N** cab, int val) {
+    N* novo = criar(val);
+    novo->prox = *cab;
+    *cab = novo;
+}
+
+void destruir(N** cab) {
+    N* atual = *cab;
+    while (atual) {
+        N* temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
+    *cab = NULL;
+}
+
+void imprimir(N* cab) {
+    while (cab) {
+        printf("%d ", cab->val);
+        cab = cab->prox;
+    }
+    printf("\n");
+}
+
+int main() {
+    N* lista = NULL;
+
+    add(&lista, 1);
+    add(&lista, 2);
+    add(&lista, 3);
+
+    imprimir(lista);
+
+    destruir(&lista);
+
+    if (lista == NULL)
+        printf("Lista destruida com sucesso\n");
+
+    return 0;
+}
+
