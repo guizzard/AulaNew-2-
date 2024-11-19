@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int valor;
+    struct Node* prox;
+} Node;
+
+Node* criar(int valor) {
+    Node* novo = (Node*)malloc(sizeof(Node));
+    novo->valor = valor;
+    novo->prox = NULL;
+    return novo;
+}
+
+void add(Node** cabeca, int valor) {
+    Node* novo = criar(valor);
+    novo->prox = *cabeca;
+    *cabeca = novo;
+}
+
+void concactenar(Node** lista1, Node* lista2) {
+    if (*lista1 == NULL) {
+        *lista1 = lista2;
+        return;
+    }
+    Node* temp = *lista1;
+    while (temp->prox) temp = temp->prox;
+    temp->prox = lista2;
+}
+
+void imprimir(Node* cabeca) {
+    while (cabeca) {
+        printf("%d ", cabeca->valor);
+        cabeca = cabeca->prox;
+    }
+    printf("\n");
+}
+
+int main() {
+    Node* lista1 = NULL;
+    Node* lista2 = NULL;
+
+    add(&lista1, 1);
+    add(&lista1, 2);
+    add(&lista1, 3);
+
+    add(&lista2, 4);
+    add(&lista2, 5);
+    add(&lista2, 6);
+
+    concactenar(&lista1, lista2);
+
+    imprimir(lista1);
+
+    return 0;
+}
